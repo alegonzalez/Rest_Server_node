@@ -43,13 +43,16 @@ const postUser = async (req, res = response) => {
 const deleteUser = async(req, res = response) => {
   
   const { id } = req.params
+  const uid = req.uid;
+  const userAuthenticated = req.user;
 //delete user from Database
 //const user = await User.findByIdAndDelete(id)
 
 //change state of user
 const user = await User.findByIdAndUpdate(id, { state: false })
   res.json({
-    user
+    user,
+    userAuthenticated
   })
 }
 

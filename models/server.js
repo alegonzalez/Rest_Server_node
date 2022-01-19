@@ -5,6 +5,7 @@ class Server {
   constructor () {
     this.app = express()
     this.userPath = '/api/users'
+    this.authPath = '/api/auth'
     //connection to database
     this.connectionDB()
     //Middleware
@@ -26,6 +27,7 @@ class Server {
     this.app.use(express.static('public'))
   }
   routes () {
+    this.app.use(this.authPath, require('../routes/auth'))
     this.app.use(this.userPath, require('../routes/user'))
   }
   listen () {

@@ -12,7 +12,7 @@ const {
   deleteUser
 } = require('../controllers/user')
 const { check } = require('express-validator')
-const { validateFields } = require('../middlewares/validate_fields')
+const { validateFields, validateJWT, validateRole, hasDifferentRole } = require('../middlewares')
 router.get('/', getUser)
 router.put(
   '/:id',
@@ -44,8 +44,11 @@ router.post(
 )
 router.delete(
   '/:id',
-  [check('id', 'Id not valid').isMongoId(), check('id').custom(existUserById)],
-  validateFields,
+  [validateJWT,
+   validateRole ,
+ //  hasDifferentRole('ADMIN_ROLE','SALE_ROLE'),
+   check('id', 'Id not valid').isMongoId(), check('id').custom(existUserById),validateFields],
+  
   deleteUser
 )
 
