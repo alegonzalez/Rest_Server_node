@@ -46,7 +46,7 @@ router.delete(
   '/:id',
   [validateJWT,
    validateRole ,
- //  hasDifferentRole('ADMIN_ROLE','SALE_ROLE'),
+   hasDifferentRole('ADMIN_ROLE','SALE_ROLE'),
    check('id', 'Id not valid').isMongoId(), check('id').custom(existUserById),validateFields],
   
   deleteUser
